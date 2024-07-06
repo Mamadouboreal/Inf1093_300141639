@@ -19,23 +19,40 @@ liste_fichiers = listing_directory(repertoire_courant)
 for triplet in liste_fichiers:
     print(triplet)
 
-#2. Proposition d'une version de  nos algorithmes de tri2-sélection permettant de trier cette liste de triplet en fonction de la taille du fichier.
-def sort_by_size(file_triplets):
-    return sorted(file_triplets, key=lambda x: x[2])
+#2. Algorithme de tri-sélection permettant de trier par tri bulle cette liste de triplet en fonction de la taille du fichier.
 
-# Exemple d'utilisation :
-file_triplets = [("fichier1", ".txt", 3), ("image_fati", ".png", 10), ("fichier2", ".docx", 5)]
-sorted_by_size = sort_by_size (file_triplets)
-print(sorted_by_size)
+def tri_selection(file_triplets):
+    
+    t = len(file_triplets)
+    for i in range(t):
+        min_index = i
+        for j in range(i + 1, t):
+            if file_triplets[j][2] < file_triplets[min_index][2]:
+                min_index = j
 
-#3. Proposition d'une version de  nos algorithmes de tri2-bulle permettant de trier cette liste de triplet en fonction de du nom de fichier.
-def sorted_by_name(file_triplets):
-    return sorted(file_triplets, key=lambda x: x[0])
+        # Parmuter les éléments
+        file_triplets[i], file_triplets[min_index] = file_triplets[min_index], file_triplets[i]
+
+    return file_triplets
 
 # Exemple d'utilisation
-file_triplets = [("fichier1", ".txt", 3), ("image_fati", ".png", 10), ("fichier2", ".docx", 5)]
-sorted_file_triplets_by_name = sorted_by_name (file_triplets)
+file_triplets = [("fichier1", ".txt", 3), ("image_fati", ".png", 10), ("doc", ".pdf", 5)]
+file_triplets_tri = tri_selection(file_triplets)
+print(file_triplets_tri)
 
-for file in sorted_file_triplets_by_name:
-    print(f"Nom du fichier : {file[0]}{file[1]}, Taille: {file[2]} Mo")
+#3. Algorithmes de tri-bulle permettant de trier par tri sélection cette liste de triplet en fonction de du nom de fichier.
 
+def tri_bulle_selection(file_triplets):
+
+    t = len(file_triplets)
+    for i in range(t):
+        for j in range(0, t-i-1):
+            if file_triplets[j][0] > file_triplets[j+1][0]:
+                # Permuter les éléments
+                file_triplets[j], file_triplets[j+1] = file_triplets[j+1], file_triplets[j]
+    return file_triplets
+
+# Exemple d'utilisation
+file_triplets = [("fichier1", ".txt", 3), ("image_fati", ".png", 10), ("document", ".docx", 5)]
+file_triplets_tri = tri_bulle_selection(file_triplets)
+print(file_triplets_tri)
