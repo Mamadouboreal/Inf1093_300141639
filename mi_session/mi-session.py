@@ -1,109 +1,76 @@
+# Exercice 2
+def build_list():
+    liste_etudiants = [] 
 
-#Collection de numbers
-numbers = []
-nb = int(input("Combien de nombres : "))
-for i in range(nb):
-    nb = int(input(f"Nombre1{i+1}:"))
-    numbers.append(nb)
+    while True:
+        nom = input("Entrez le nom de l'étudiant : ")
+        prenom = input("Entrez le prénom de l'étudiant : ")
 
-#Affichache des numbers
-print(numbers)
+        # Ajout des données à la liste
+        liste_etudiants.append((nom, prenom))
 
-# Lire la valeur a rechercher.
-search_nb = int(input("Quel nombre a chercher?"))
+        # Demande à l'utilisateur s'il veut ajouter un nouvel étudiant
+        continuer = input("Voulez-vous ajouter un nouvel étudiant ? (1 pour oui, 0 pour non) ")
+        if continuer != '1':
+            break 
 
-# Recherche sequentielle
+    return liste_etudiants
 
-position = -1
-for i in range(len(numbers)):
-    if(search_nb==numbers[i]):
-        position=i
-        break
-if(position>-1):
-    print(f"{search_nb} est a la position {position}")
-else:
-    print(f"{search_nb} n'existe pas dans le tableau")
+# Exemple d'utilisation
+if __name__ == "__main__":
+    liste_etudiants = build_list()
+    print("Liste des étudiants reunie :", liste_etudiants)
 
-# Recherche dichotomique lorsque le tableau est trie
-""" 
-found = False
-begin=0
-end=len(numbers)-1
-while(not(found) and begin>end):
-    mid = (begin+end)//2
-    if(search_nb == numbers[mid]):
-        found=True
-        print("nombre trouve a la position : ", mid)
+
+#Exercice 3 (N°1)
+
+def permute(liste, i, j):
+    
+    if 0 <= i < len(liste) and 0 <= j < len(liste):
+        liste[i], liste[j] = liste[j], liste[i]
+        return liste
     else:
-        if(search_nb <= numbers[mid]):
-            end = mid-1
-        else:
-            begin = mid+1
-            
-if(not(found)):
-    print("Nombre inexistant ")
+        print("Indices invalides. Assurez-vous que les indices sont dans la plage valide.")
+        return liste
 
-"""
+# Exemple d'utilisation
+ma_liste = [("Viny", 34), ("Ryan", 43), ("Tity", 31), ("Antony", 27), ("Calvin", 39), ("Lilian", 27)]
+i, j = 1, 3  # Indices des éléments à permuter
+resultat = permute(ma_liste, i, j)
+print(resultat)
 
+#Exercice 3 (N°2)
+def bubbleSort(liste):
 
-#Question 1: Completer le code necessaire pour afficher la position de la valeur maximale dans numbers
+    t = len(liste)
+    for i in range(t):
+        for j in range(0, t-i-1):
+            if liste[j][0] > liste[j+1][0]:
+                # Permuter les éléments
+                liste[j], liste[j+1] = liste[j+1], liste[j]
+    return liste
 
-numbers = [17, 76, 22, 13, 15, 45]
-valeur_max = max(numbers)
-position_max = numbers.index(valeur_max)
+# Exemple d'utilisation
+liste = [("Viny", 34), ("Ryan", 43), ("Tity", 31), ("Antony", 27), ("Calvin", 39), ("Lilian", 27)]
+ma_liste = bubbleSort(liste)
+print(ma_liste)
 
-print(f"La valeur maximale est {valeur_max} à la position {position_max}.")
+#Exercice 3 (N°3)
+def selectionSort(liste):
+    
+    t = len(liste)
+    for i in range(t):
+        min_index = i
+        for j in range(i + 1, t):
+            if liste[j][2] < liste[min_index][2]:
+                min_index = j
 
+        # Parmuter les éléments
+        liste[i], liste[min_index] = liste[min_index], liste[i]
 
-#Question 2: Completer le code necessaire pour afficher la position de la valeur minimale dans numbers
+    return liste
 
-
-numbers = [17, 76, 22, 13, 15, 45]
-valeur_minimale = min(numbers)
-position = numbers.index(valeur_minimale)
-
-print(f"La valeur minimale est {valeur_minimale} et sa position dans la liste est {position}.")
-
-
-#Question 3: Ecrire le code necessaire pour verifier si le tableau numbers est trie en ordre croissant
-
-def ordre_croissant(tableau):
-    for i in range(len(tableau) - 1):
-        if tableau[i] > tableau[i + 1]:
-            return False
-    return True
-
-numbers = [17, 76, 22, 13, 15, 45]
-if ordre_croissant(numbers):
-    print("Le tableau est trié en ordre croissant.")
-else:
-    print("Le tableau n'est pas trié en ordre croissant.")
-
-
-#Question 4: Considerons que le tableau est trie en ordre decroissant. Implementer une methode de recherche dichotomique dans ce cas.
-
-def recherche_dichotomique(tableau, element):
-    gauche, droite = 0, len(tableau) - 1
-
-    while gauche <= droite:
-        milieu = (gauche + droite) // 2
-        valeur_milieu = tableau[milieu]
-
-        if valeur_milieu == element:
-            return milieu 
-        elif valeur_milieu < element:
-            droite = milieu - 1 
-        else:
-            gauche = milieu + 1 
-
-    return None  
-
-tableau_trie = [17, 76, 22, 13, 15, 45]
-element_recherche = 22
-position = recherche_dichotomique(tableau_trie, element_recherche)
-
-if position is not None:
-    print(f"L'élément {element_recherche} se trouve à l'indice {position}.")
-else:
-    print(f"L'élément {element_recherche} n'est pas présent dans le tableau.")
-
+# Exemple d'utilisation
+liste = [("Viny", 34), ("Ryan", 43), ("Tity", 31), ("Antony", 27), ("Calvin", 39), ("Lilian", 27)]
+ma_liste = selectionSort(liste)
+print(ma_liste)
