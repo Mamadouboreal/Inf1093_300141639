@@ -62,7 +62,7 @@ def selectionSort(liste):
     for i in range(t):
         min_index = i
         for j in range(i + 1, t):
-            if liste[j][2] < liste[min_index][2]:
+            if liste[j][0] < liste[min_index][0]:
                 min_index = j
 
         # Parmuter les éléments
